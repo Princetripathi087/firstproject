@@ -1,15 +1,25 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse
-from .models import register
+from .models import register, detail
 from django.contrib.auth import login,logout,authenticate
 import requests
 import json
+from django.contrib import auth
 from django import template
 # Create your views here.
 def index(request):
     errorEmail = False
     errorPass = False
+    if request.method == 'POST':
+        U = auth.authenticate(ea=request.POST['ea'],pas=request.POST['pas'])
+        if U is not None:
+            auth.login(request,U)
+            return redirect('details')
+        else:
+            return render(request,'index.html',{'error':'Email or Password is incorrect'})
+    else:
+        return render(request,'index.html')
     if request.method == 'POST':
         fn = request.POST['fn']
         ln = request.POST['ln']
@@ -27,27 +37,23 @@ def index(request):
     d= {'errorPass':errorPass,'errorEmail':errorEmail}
     return render(request,'index.html',d)
     
-    if request.method == 'POST':
-            ea = request.POST['ea']
-            pas = request.POST['pas']
-            register.authenticate(email=ea,passw=pas)
-            if not register.is_staff:
-                login(request,register)
-                return redirect('index')
-    return render(request,'details.html')        
-    
-    
 def details(request):
-    if request.method =='POST':
+    if 'details' in request.POST:
+        if request.user.is_authenticated:
+            print("2")
+            return redirect('details')
+        
         name = request.POST['name']
         email = request.POST['email']
+        print(email)
         con = request.POST['con']
         gen = request.POST['gen']
         add = request.POST['add']
         o=detail.objects.create(c_name=name,c_email=email,c_cont=con,gender=gen,add=add)
         o.save()
+        print("1")
         return render(request,'details.html')
-    return render(request,'details.html')
+    return render(request,'details.html')    
 
 def requarement(request):
     return render(request,'requarement.html')
@@ -62,5 +68,5 @@ def payment(request):
     return render(request,'payment.html')
 
 '''def Test(request):
-    register.objects.create(f_name='abc',l_name='xyz', email='exapmle@gmail.com',passw='123', repassw='123')
-    return redirect('index')'''
+    detail.objects.create(c_name='abc',c_email='xyz', c_cont='exapmle@gmail.com',gender='123', add='123')
+    return redirect('')'''

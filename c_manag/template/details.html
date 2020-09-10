@@ -17,21 +17,21 @@
         {% csrf_token %}
         <h1>Customer details</h1>
         <div class="form-group" class='col-sm-2'>
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <label for="nama1">Name</label>
+            <input type="text" class="form-control" name="name">
         </div>
         
         <div class="form-group">
-            <label for="uid">Email</label>
-            <input type="email" class="form-control" id="uid" name="email">
+            <label for="email1">Email</label>
+            <input type="email" class="form-control" name="email">
         </div>
         
         <div class="form-group">
-            <label for="con">Contact No.</label>
-            <input type="text" class="form-control" id="name" name="con">
+            <label for="contact">Contact No.</label>
+            <input type="text" class="form-control" name="con">
         </div>
         <div class="form-group">
-            <label for="con">Gender</label>
+            <label for="gender">Gender</label>
         <div class="form-check form-check-inline">    
             <input class="form-check-input" type="radio" name="gen" value="option1">
             <label class="form-check-label">Male</label>
@@ -41,11 +41,11 @@
             <label class="form-check-label">Female</label>
         </div>    
         <div class="form-group">
-            <label for="add">Address</label>
-            <input type="textarea" class="form-control" id="add" name="add">
+            <label for="address">Address</label>
+            <input type="textarea" class="form-control" name="add">
         </div>
-        <div class="mx-8">
-            <button type="submit" class="btn btn-primary" name="detail">Next</button>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" name="details">Next</button>
         </div>
     </form>
     

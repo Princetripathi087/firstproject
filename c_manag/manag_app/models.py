@@ -18,7 +18,7 @@ class login(models.Model):
 
 class detail(models.Model):
     c_name = models.CharField(max_length=30)
-    c_email = models.EmailField(max_length=30)
+    c_email = models.EmailField()
     c_cont = models.IntegerField()
     gender = models.CharField(max_length=50,null=True)
     add = models.CharField(max_length=50)
