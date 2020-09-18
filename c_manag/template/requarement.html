@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>requarement</title>
     <style>
-        P{
+        P {
             margin-top: 600px;
         }
+
         body {
             background-color: cyan;
-          }
-          h1{
-              color: blue;
-          }
+        }
+
+        h1 {
+            color: blue;
+        }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
+
 <body>
-    <form method="post" class="container" action="{%url 'payment'%}">
+    <form method="post" class="container">
         {% csrf_token %}
         <h1><b>Transport and Other Details</b></h1>
         <div class="input-group mb-2">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01" name='typeofveg'>Type of vegitable</label>
+                <label class="input-group-text" for="inputGroupSelect01" name='typeofveg'>Type of vegitable</label>
             </div>
             <select class="custom-select" id="inputGroupSelect01">
-              <option selected>Choose...</option>
-              <option value="1">Patato</option>
-              <option value="2">Tomato</option>
-              <option value="3">Other</option>
+                <option selected>Choose...</option>
+                <option value="1">Patato</option>
+                <option value="2">Tomato</option>
+                <option value="3">Other</option>
             </select>
-          </div>
-          <div class="form-group" class="input-group mb-2">
+        </div>
+        <div class="form-group" class="input-group mb-2">
             <label for="numpack">Number of Packet</label>
             <input type="text" class="form-control" id="numpack" name="numpack">
-          </div>
-          <label for="name">Date of Submit</label>
-          <div class="container">
+        </div>
+        <label for="name">Date of Submit</label>
+        <div class="container">
             <div class="row">
                 <div class='col-sm-4'>
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker1'>
-                            <input type='date' class="form-control" />
+                            <input type='date' class="form-control" name="datesub">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -62,7 +66,7 @@
                 <div class='col-sm-4'>
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker1'>
-                            <input type='date' class="form-control" >
+                            <input type='date' class="form-control" name="deldate">
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -78,31 +82,34 @@
         </div>
         <div class="input-group mb-2">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Type of lorry</label>
+                <label class="input-group-text" for="inputGroupSelect01" name="lorrytype">Type of lorry</label>
             </div>
             <select class="custom-select" id="inputGroupSelect01">
-              <option selected>Choose...</option>
-              <option value="1">3 Willer</option>
-              <option value="2">4 Willer</option>
+                <option selected>Choose...</option>
+                <option value="1">3 Willer</option>
+                <option value="2">4 Willer</option>
             </select>
-          </div>
-          <div class="form-group" class="input-group mb-1">
+        </div>
+        <div class="form-group" class="input-group mb-1">
             <label for="lorrynumber">lorry number</label>
             <input type="text" class="form-control" id="lorrynumber" name="lorrynumber">
-          </div>
-          <div class="form-group" class="input-group mb-1">
+        </div>
+        <div class="form-group" class="input-group mb-1">
             <label for="drivnum">Driver name and contect number</label>
             <input type="text" class="form-control" id="drivnum" name="drivnum">
-          </div>
-    <button class="btn btn-primary"  id="submit">Next</button>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="submit" id="submit" name="requarement">Next</button>
+        </div>
 
 
-    
 
-      
-      
-    
-    
+
+
+
+
+
     </form>
 </body>
+
 </html>

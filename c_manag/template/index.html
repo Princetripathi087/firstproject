@@ -75,9 +75,11 @@
               <label for="password1">Password</label>
               <input type="password" class="form-control" name="pas">
             </div>
-            {% if errorL %}
-            <p>Wrong Username or password</p>
-            {% endif %}
+            <span class="remember-box checkbox">
+              {% if errorL %}
+              <p>Wrong Username or password</p>
+              {% endif %}
+            </span>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary btn-sm" name="login">Login</button>
             </div>
@@ -98,6 +100,17 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+        </div>
+        <div class="form-group">
+          {% if messages %}
+          <ul class="massages">
+            {%for message in massages%}
+            <li>
+              <div class="alert alert-success">{{message}} </div>
+            </li>
+            {%endfor%}
+          </ul>
+          {%endif%}
         </div>
         <div class="modal-body">
           <form method="POST" action="{%url 'index'%}">
@@ -130,6 +143,11 @@
             {% if errorUser %}
             <span>
               <p>Username already taken</p>
+            </span>
+            {% endif %}
+            {% if errorEmail %}
+            <span>
+              <p>Invalid Email</p>
             </span>
             {% endif %}
             <div class="modal-footer">
