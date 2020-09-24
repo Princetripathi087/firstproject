@@ -33,6 +33,7 @@ class requarement(models.Model):
     numPack = models.IntegerField()
     sumitD = models.DateField()
     deliD = models.DateField()
+    amount = models.IntegerField(default=0)
     lorryType = models.CharField(max_length=30,null=True)
     lorryNum = models.CharField(max_length=30,null=True)
     drivName = models.CharField(max_length=60,null=True)

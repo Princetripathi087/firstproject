@@ -24,6 +24,9 @@ urlpatterns = [
     path('about',views.about,name='about'),
     path('contact',views.contact,name='contact'),
     path('payment',views.payment,name='payment'),
+    #path('template/paytm',views.paytm,name='template/paytm'),
+    path('handlerequest',views.handlerequest,name='HandleRequest'),
+    
     #path('test/',views.Test)
     #path('register',views.register,name='register'),
 ]

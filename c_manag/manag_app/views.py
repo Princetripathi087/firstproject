@@ -8,6 +8,12 @@ import json
 from django.contrib import auth
 from django import template
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
+from paytm import Checksum
+from Crypto.Hash import BLAKE2s
+import Crypto
+from Crypto.Hash import SHA
+MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'
 # Create your views here.
 def index(request):
     errorLogin = False
@@ -72,12 +78,29 @@ def requarements(request):
         numpack = request.POST['numpack']
         datesub = request.POST['datesub']
         deldate = request.POST['deldate']
+        amount = request.POST['amount']
         lorrytype = request.POST.get('lorrytype')
         lorrynumber = request.POST['lorrynumber']
         drivnum = request.POST['drivnum']
-        requarement.objects.create(vegTyp=typeofveg,numPack=numpack,sumitD=datesub,deliD=deldate,lorryType=lorrytype,lorryNum=lorrynumber,drivName=drivnum)
-        return redirect('payment')
+        requarement.objects.create(vegTyp=typeofveg,numPack=numpack,sumitD=datesub,deliD=deldate,amount=amount,lorryType=lorrytype,lorryNum=lorrynumber,drivName=drivnum)
+        #return redirect('payment')
+        param_dict={
+            'MID':'WorldP64425807474247',
+            'ORDER_ID':'email',
+            'TXN_AMOUNT':'amount',
+            'CUST_ID':'email',
+            'INDUSTRY_TYPE_ID':'Retail',
+            'WEBSITE':'worldpressplg',
+            'CHANNEL_ID':'WEB',
+	        'CALLBACK_URL':'http://127.0.0.1:8000/c_manag/handlepayment/',
+        }
+        param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict,MERCHANT_KEY)
+        return render(request,'paytm.html',{'param_dict':param_dict})
     return render(request,'requarement.html')
+@csrf_exempt
+def handlerequest(request):
+    #paytm will send you post request here
+    pass
 
 def about(request):
     return render(request,'about.html')
