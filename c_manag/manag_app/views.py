@@ -3,16 +3,20 @@ from django.urls import reverse
 from django.http import HttpResponse
 from .models import register, detail,requarement
 from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth.models import User
 import requests
 import json
 from django.contrib import auth
 from django import template
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
-from paytm import Checksum
-from Crypto.Hash import BLAKE2s
-import Crypto
-from Crypto.Hash import SHA
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+#from paytm import Checksum
+#from Crypto.Hash import BLAKE2s
+#import Crypto
+#from Crypto.Hash import SHA
 MERCHANT_KEY = 'kbzk1DSbJiV_O3p5'
 # Create your views here.
 def index(request):
@@ -21,11 +25,11 @@ def index(request):
     errorPass = False
     errorUser = False
     if 'login' in request.POST:
-        ea = request.POST['ea']
+        un = request.POST['un']
         pas = request.POST['pas']
-        user = authenticate(username=ea,password=pas)
+        user = authenticate(username=un,password=pas)
         if user:
-            auth.login(request,user)
+            login(request,user)
             if request.user.is_staff:
                 return redirect('details')
             else:
@@ -37,21 +41,23 @@ def index(request):
         ln = request.POST['ln']
         em = request.POST['em']
         ev = json.loads(requests.get('https://api.trumail.io/v2/lookups/json?email='+em).text)
+        un = request.POST['un']
         pas1 = request.POST['pas1']
         pas2 = request.POST['pas2']
-        check = user.objects.filter(username = em)
-        if (ev['validFormat'] is not True) or (ev['deliverable'] is not True):
-            errorEmail = True
-        elif pas1 != pas2:
+        check = User.objects.filter(username=em)
+        #if (ev['validFormat'] is not True) or (ev['deliverable'] is not True):
+           # errorEmail = True
+        if pas1 != pas2:
             errorPass = True
         elif check:
             errorUser = True
         else:
-            register.objects.create(f_name = fn,l_name = ln, email =em, passw=pas1, repassw=pas2)
-            user = authenticate(username = em, password = pas1)
+            User.objects.create_user(username=em, password=pas1,is_staff = False)
+            register.objects.create(f_name=fn,l_name=ln)
+            user = authenticate(username =em, password = pas1)
             login(request, user)
             return redirect('index')
-        print('values = ',em,fn,pas1,pas2)
+        print('values = ',em,pas1,pas2)
     d= {'errorPass':errorPass,'errorEmail':errorEmail,'errorL':errorLogin}
     return render(request,'index.html',d)
     
@@ -83,24 +89,20 @@ def requarements(request):
         lorrynumber = request.POST['lorrynumber']
         drivnum = request.POST['drivnum']
         requarement.objects.create(vegTyp=typeofveg,numPack=numpack,sumitD=datesub,deliD=deldate,amount=amount,lorryType=lorrytype,lorryNum=lorrynumber,drivName=drivnum)
-        #return redirect('payment')
-        param_dict={
-            'MID':'WorldP64425807474247',
-            'ORDER_ID':'email',
-            'TXN_AMOUNT':'amount',
-            'CUST_ID':'email',
-            'INDUSTRY_TYPE_ID':'Retail',
-            'WEBSITE':'worldpressplg',
-            'CHANNEL_ID':'WEB',
-	        'CALLBACK_URL':'http://127.0.0.1:8000/c_manag/handlepayment/',
-        }
-        param_dict['CHECKSUMHASH'] = Checksum.generate_checksum(param_dict,MERCHANT_KEY)
-        return render(request,'paytm.html',{'param_dict':param_dict})
+        #return redirect('submit')
+    #if 'submit' in request.POST:
+        sub = "conform"
+        from_mail = settings.EMAIL_HOST_USER
+        data = dict()
+        data = {'name':detail.c_name,'datesub':requarement.sumitD,'deldate':requarement.deliD}
+        html = get_template('mail.html').render(data)
+        msg = EmailMultiAlternatives(sub,'',from_mail)
+        msg.attach_alternative(html, 'text/html')
+        print('result=', msg.send())
+        return redirect('submit')
     return render(request,'requarement.html')
-@csrf_exempt
-def handlerequest(request):
-    #paytm will send you post request here
-    pass
+
+
 
 def about(request):
     return render(request,'about.html')
@@ -108,8 +110,11 @@ def about(request):
 def contact(request):
     return render(request,'contact.html')
 
-def payment(request):
-    return render(request,'payment.html')
+def submit(request):
+    return render(request,'submit.html')
+
+#def Home(request):
+  #  return render(request,'index.html')
 
 '''def Test(request):
     detail.objects.create(c_name='abc',c_email='xyz', c_cont='exapmle@gmail.com',gender='123', add='123')

@@ -17,15 +17,16 @@ from django.contrib import admin
 from django.urls import path
 from manag_app import views
 urlpatterns = [
-    path('',views.index,name='index'),
+    path('home',views.index,name='index'),
     path('admin/', admin.site.urls),
     path('details',views.details,name='details'),
     path('requarement',views.requarements,name='requarement'),
     path('about',views.about,name='about'),
     path('contact',views.contact,name='contact'),
-    path('payment',views.payment,name='payment'),
-    #path('template/paytm',views.paytm,name='template/paytm'),
-    path('handlerequest',views.handlerequest,name='HandleRequest'),
+    path('submit',views.submit,name='submit'),
+    #path('Home',views.Home,name='index')
+    #path('',views.index,name='index'),
+    #path('Payment_check',views.Payment_check,name='Payment_check'),
     
     #path('test/',views.Test)
     #path('register',views.register,name='register'),

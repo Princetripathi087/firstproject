@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <form method="post" class="container">
+    <form method="post" class="container" >
         {% csrf_token %}
         <h1><b>Transport and Other Details</b></h1>
         <div class="input-group mb-2">
@@ -38,7 +38,7 @@
         </div>
         <div class="form-group" class="input-group mb-2">
             <label for="numpack">Number of Packet</label>
-            <input type="text" class="form-control" id="numpack" name="numpack">
+            <input type="text" class="form-control" id="numpack" name="numpack" required>
         </div>
         <label for="name">Date of Submit</label>
         <div class="container">
@@ -46,7 +46,7 @@
                 <div class='col-sm-4'>
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker1'>
-                            <input type='date' class="form-control" name="datesub">
+                            <input type='date' class="form-control" name="datesub" required>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -67,7 +67,7 @@
                 <div class='col-sm-4'>
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker1'>
-                            <input type='date' class="form-control" name="deldate">
+                            <input type='date' class="form-control" name="deldate" required>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -83,7 +83,7 @@
         </div>
         <div class="form-group" class="input-group mb-2">
             <label for="amount">Amount</label>
-            <input type="text" class="form-control" id="amount" name="amount">
+            <input type="text" class="form-control" id="amount" name="amount" required>
         </div>
         <div class="input-group mb-2">
             <div class="input-group-prepend">
@@ -97,11 +97,11 @@
         </div>
         <div class="form-group" class="input-group mb-1">
             <label for="lorrynumber">lorry number</label>
-            <input type="text" class="form-control" id="lorrynumber" name="lorrynumber">
+            <input type="text" class="form-control" id="lorrynumber" name="lorrynumber" required>
         </div>
         <div class="form-group" class="input-group mb-1">
             <label for="drivnum">Driver name and contect number</label>
-            <input type="text" class="form-control" id="drivnum" name="drivnum">
+            <input type="text" class="form-control" id="drivnum" name="drivnum" required>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" type="submit" id="submit" name="requarement">Next</button>

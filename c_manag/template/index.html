@@ -69,11 +69,11 @@
             {% csrf_token %}
             <div class="form-group">
               <label for="email1">Email address</label>
-              <input type="email" class="form-control" id="email1" name="ea">
+              <input type="email" class="form-control" id="email1" name="un" required>
             </div>
             <div class="form-group">
               <label for="password1">Password</label>
-              <input type="password" class="form-control" name="pas">
+              <input type="password" class="form-control" name="pas" required>
             </div>
             <span class="remember-box checkbox">
               {% if errorL %}
@@ -117,38 +117,36 @@
             {% csrf_token %}
             <div class="form-group">
               <label for="firstname">First Name</label>
-              <input type="text" class="for-control" name="fn">
+              <input type="text" class="for-control" name="fn" required>
             </div>
             <div class="form-group">
               <label for="lastname">Last Name</label>
-              <input type="text" class="for-control" name="ln"></label>
+              <input type="text" class="for-control" name="ln" required>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="for-control" name="em">
+              <input type="email" class="for-control" name="em" required>
+            </div>
+            <div class="form-group">
+              <label for="username">User Name</label>
+              <input type="text" class="for-control" name="un" required>
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="for-control" name="pas1">
+              <input type="password" class="for-control" name="pas1" required>
             </div>
             <div class="form-group">
               <label for="Re-password">Re-password</label>
-              <input type="password" class="for-control" name="pas2">
+              <input type="password" class="for-control" name="pas2" required>
             </div>
             {% if errorPass %}
-            <span>
-              <p>Passwords Does not match</p>
-            </span>
+            <span><p>Passwords Does not match</p></span>
             {% endif %}
             {% if errorUser %}
-            <span>
-              <p>Username already taken</p>
-            </span>
+            <span><p>Username already taken</p></span>
             {% endif %}
             {% if errorEmail %}
-            <span>
-              <p>Invalid Email</p>
-            </span>
+            <span><p>Invalid Email</p></span>
             {% endif %}
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary btn-sm" name="Register">Register</button>

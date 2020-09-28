@@ -3,11 +3,9 @@ from django.contrib.auth.models import User
 from django import forms
 
 class register(models.Model):
-    f_name = models.CharField(max_length=20)
-    l_name = models.CharField(max_length=20)
-    email = models.EmailField()
-    passw = models.CharField(max_length=10)
-    repassw = models.CharField(max_length=10)
+    f_name = models.CharField(max_length=20,null=True)
+    l_name = models.CharField(max_length=20,null=True)
+    
     def __str__(self):
         return self.f_name
 
@@ -37,4 +35,6 @@ class requarement(models.Model):
     lorryType = models.CharField(max_length=30,null=True)
     lorryNum = models.CharField(max_length=30,null=True)
     drivName = models.CharField(max_length=60,null=True)
+
+
 
